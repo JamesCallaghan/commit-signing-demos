@@ -1,0 +1,41 @@
+server:
+  enabled: true
+  ha:
+    enabled: false
+  dataStorage:
+    enabled: true
+    size: 10Gi
+  extraEnvironmentVars:
+    VAULT_PLUGIN_DIR: "/vault/plugins"
+  standalone:
+    enabled: true
+    config: |-
+      plugin_directory = "/vault/plugins"
+
+      storage "file" {
+        path = "/vault/data"
+      }
+
+      listener "tcp" {
+        address = "0.0.0.0:8200"
+        tls_disable = 1
+      }
+  image:
+    repository: hashicorp/vault
+    tag: "latest"
+  extraInitContainers:
+    - name: gpg-plugin
+      image: vault-gpg-plugin:latest
+      imagePullPolicy: IfNotPresent
+      command: ["/bin/sh", "-c"]
+      args:
+        - cp /usr/local/bin/vault-gpg-plugin /vault/plugins/
+      volumeMounts:
+        - name: gpg-plugin
+          mountPath: /vault/plugins
+  volumes:
+    - name: gpg-plugin
+      emptyDir: {}
+  volumeMounts:
+    - name: gpg-plugin
+      mountPath: /vault/plugins

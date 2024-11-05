@@ -7,6 +7,7 @@ RUN apt-get update && \
     unzip \
     gnupg \
     jq \
+    wget \
     ca-certificates && \
     curl -Lo /tmp/vault.zip https://releases.hashicorp.com/vault/1.18.0/vault_1.18.0_linux_amd64.zip && \
     unzip /tmp/vault.zip -d /usr/local/bin/ && \

@@ -1,11 +1,13 @@
-# S/MIME commit signing example
+# Git Commit Signing Demos
 
-## Demo setup
+## S/MIME commit signing example
+
+### Demo
 
 Spin up a kind cluster with Vault to provide X.509s and a test container to verify that we can sign commits with certs:
 
 ```bash
-make all
+make dev
 ```
 
 Wait until all pods are running, and then set up Vault, pressing return when prompted, to enter an empty passphrase:
@@ -57,7 +59,63 @@ View the signed commit:
 git log --show-signature
 ```
 
-## Teardown
+### Teardown
+
+Exit the test container shell and run:
+
+```bash
+make down
+```
+
+## Signing plugin example
+
+### Demo run
+
+This example uses [vaultsign](https://github.com/martinbaillie/vaultsign) and [vault-gpg-plugin](https://github.com/LeSuisse/vault-gpg-plugin)
+
+Start an instance of Vault and the test container:
+
+```bash
+make plugin
+```
+
+When the Vault pod is Running, initialise Vault:
+
+```bash
+make initialise
+```
+
+Export the root token:
+
+```bash
+export ROOT_TOKEN=...
+```
+
+Run the following command 3 times, each time inputting a different unseal key:
+
+```bash
+make unseal
+```
+
+The Vault pod should now show as Ready:
+
+```bash
+kubectl get po
+```
+
+Register the Vault GPG plugin and create a test user key:
+
+```bash
+./plugin-setup.sh
+```
+
+Test a signed commit:
+
+```bash
+./sign-with-plugin.sh
+```
+
+### Demo Teardown
 
 Exit the test container shell and run:
 
