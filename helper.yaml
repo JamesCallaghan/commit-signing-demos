@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: git-vault-cli
+spec:
+  containers:
+    - name: git-vault-cli
+      image: git-vault-test-container:v1
+      command: [ "sleep", "infinity" ]
