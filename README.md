@@ -21,7 +21,7 @@ Exec into the test container:
 kubectl exec -it git-vault-cli -- /bin/bash
 ```
 
-Run the following:
+Run the following in the test container shell:
 
 ```bash
 echo disable-crl-checks >> ~/.gnupg/gpgsm.conf
@@ -58,6 +58,8 @@ git log --show-signature
 ```
 
 ## Teardown
+
+Exit the test container shell and run:
 
 ```bash
 make down
