@@ -1,5 +1,9 @@
 # Git Commit Signing Demos
 
+## Introduction
+
+This repo contains demos of commit signing using S/MIME and a [vault-gpg-plugin](https://github.com/LeSuisse/vault-gpg-plugin).
+
 ## S/MIME commit signing example
 
 ### Demo
