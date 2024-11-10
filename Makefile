@@ -34,10 +34,7 @@ plugin-build:
 
 .PHONY: initialise
 initialise:
-	kubectl exec -it vault-0 -- vault operator init
-
-.PHONY: unseal
-unseal:
-	kubectl exec -it vault-0 -- vault operator unseal
+	kubectl cp ./init-vault.sh vault-0:/vault/init-vault.sh -c vault
+	kubectl exec -it vault-0 -c vault -- /bin/sh -c "/vault/init-vault.sh" | grep -oP '(?<=VAULT_TOKEN: ).*' | xargs -I{} echo "export ROOT_TOKEN={}" > .env
 
 

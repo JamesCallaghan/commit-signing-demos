@@ -83,22 +83,10 @@ Start an instance of Vault and the test container:
 make plugin
 ```
 
-When the Vault pod is Running, initialise Vault:
+When the Vault pod is Running, initialise and unseal Vault:
 
 ```bash
 make initialise
-```
-
-Export the root token:
-
-```bash
-export ROOT_TOKEN=...
-```
-
-Run the following command 3 times, each time inputting a different unseal key:
-
-```bash
-make unseal
 ```
 
 The Vault pod should now show as Ready:
