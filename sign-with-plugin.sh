@@ -1,7 +1,12 @@
 #!/bin/bash
 
+# Source the ROOT_TOKEN
+source .env
+ROOT_TOKEN=$(echo "$ROOT_TOKEN" | tr -d '[:space:]')
+
 kubectl exec -it git-vault-cli -- /bin/bash -c "
   export VAULT_ADDR="http://vault:8200"
+  export ROOT_TOKEN=\"$ROOT_TOKEN\"
   
   vault login $ROOT_TOKEN
   
